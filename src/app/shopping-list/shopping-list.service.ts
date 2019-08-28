@@ -12,6 +12,10 @@ export class ShoppingListService {
     new Ingredient('Self Raising Flour', 1)
   ];
 
+  changedIngredients() {
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+
   getIngredients() {
     return this.ingredients.slice();
   }
@@ -22,7 +26,7 @@ export class ShoppingListService {
 
   addIngredient(ingredient: Ingredient) {
     this.ingredients.push(ingredient);
-    this.ingredientsChanged.next(this.ingredients.slice());
+    this.changedIngredients();
   }
 
   addIngredients(ingredients: Ingredient[]) {
@@ -30,16 +34,16 @@ export class ShoppingListService {
     //   this.addIngredient(ingredient);
     // }
     this.ingredients.push(...ingredients);
-    this.ingredientsChanged.next(this.ingredients.slice());
+    this.changedIngredients();
   }
 
   updateIngredient(index: number, newIngredient: Ingredient) {
     this.ingredients[index] = newIngredient;
-    this.ingredientsChanged.next(this.ingredients.slice());
+    this.changedIngredients();
   }
 
   deleteIngredient(index: number) {
     this.ingredients.splice(index, 1);
-    this.ingredientsChanged.next(this.ingredients.slice());
+    this.changedIngredients();
   }
 }
